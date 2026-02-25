@@ -5,25 +5,41 @@ import time
 
 app = Flask(__name__)
 
+# Helper function to get MySQL variables (checks both with and without underscores)
+def get_mysql_var(name):
+    # Try with underscore first, then without
+    return os.environ.get(name, os.environ.get(name.replace('_', ''), None))
+
 # Print all MySQL environment variables for debugging
 print("===== DATABASE CONFIGURATION =====")
-print(f"MYSQL_HOST: {os.environ.get('MYSQL_HOST', 'NOT SET')}")
-print(f"MYSQL_USER: {os.environ.get('MYSQL_USER', 'NOT SET')}")
-print(f"MYSQL_PASSWORD: {'SET' if os.environ.get('MYSQL_PASSWORD') else 'NOT SET'}")
-print(f"MYSQL_DATABASE: {os.environ.get('MYSQL_DATABASE', 'NOT SET')}")
-print(f"MYSQL_PORT: {os.environ.get('MYSQL_PORT', 'NOT SET')}")
+print(f"MYSQL_HOST: {get_mysql_var('MYSQL_HOST')}")
+print(f"MYSQL_USER: {get_mysql_var('MYSQL_USER')}")
+print(f"MYSQL_PASSWORD: {'SET' if get_mysql_var('MYSQL_PASSWORD') else 'NOT SET'}")
+print(f"MYSQL_DATABASE: {get_mysql_var('MYSQL_DATABASE')}")
+print(f"MYSQL_PORT: {get_mysql_var('MYSQL_PORT')}")
 print("===================================")
 
 # MySQL connection with retry logic and error handling
 def get_db_connection():
     try:
-        print("Attempting to connect to database...")
+        host = get_mysql_var('MYSQL_HOST')
+        user = get_mysql_var('MYSQL_USER')
+        password = get_mysql_var('MYSQL_PASSWORD')
+        database = get_mysql_var('MYSQL_DATABASE')
+        port = get_mysql_var('MYSQL_PORT')
+        
+        print(f"Attempting to connect to database at {host}:{port}...")
+        
+        if not host or not user:
+            print("❌ MySQL host or user not set in environment variables")
+            return None
+            
         connection = mysql.connector.connect(
-            host=os.environ.get("MYSQL_HOST", "localhost"),
-            user=os.environ.get("MYSQL_USER", "root"),
-            password=os.environ.get("MYSQL_PASSWORD", ""),
-            database=os.environ.get("MYSQL_DATABASE", "railway"),
-            port=int(os.environ.get("MYSQL_PORT", 3306)),
+            host=host,
+            user=user,
+            password=password if password else "",
+            database=database if database else "railway",
+            port=int(port) if port else 3306,
             connection_timeout=10
         )
         print("✅ Database connected successfully!")
