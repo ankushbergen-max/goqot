@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go-Quote Products</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* --- Products Section --- */
+    .products-section { padding: 50px 0; background: black; }
+    .products-section .container { width: 90%; max-width: 1200px; margin: auto; }
+    .products-section h2 { text-align: center; color: whitesmoke; margin-bottom: 50px; font-size:36px; }
+
+    .product-row { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 40px; }
+    .product-card { display: flex; background: #fff; width: 48%; margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .product-card img { width: 150px; height: 150px; object-fit: cover; }
+    .product-desc { padding: 15px; display: flex; flex-direction: column; justify-content: center; }
+    .product-desc h3 { font-size: 18px; margin-bottom:10px; color:#0b0b0b; }
+    .product-desc p { font-size: 14px; color:#333; line-height:1.4; }
+
+    .product-card.product-large img { width: 250px; height:auto; }
+    .product-card.product-large .product-desc h3 { font-size:22px; }
+    .product-card.product-large .product-desc p { font-size:16px; }
+
+    .return-home { text-align:center; margin:50px 0; }
+    .return-home a { color:#00f2ff; text-decoration:none; font-size:18px; }
+    .return-home a:hover { color:#ff0; }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .product-card { width:100%; flex-direction:column; align-items:center; }
+      .product-card img { width:100%; height:auto; }
+      .product-desc { text-align:center; padding:10px; }
+    }
+
+    /* Continuous Slider */
+    .image-slider { width:100%; overflow:hidden; background:#0b0b0b; padding:15px 0; margin-top:30px; }
+    .slider-track { display:flex; width:max-content; animation: moveLeft 40s linear infinite; }
+    .slider-track img { flex-shrink:0; width:250px; height:120px; object-fit:cover; margin:0 30px; border-radius:8px; box-shadow:0 0 10px rgba(0,255,255,0.3); }
+    @keyframes moveLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Footer */
+    .footer { background:#0a0a0a; color:white; padding:50px 20px 20px; margin-top:60px; font-family:Arial,sans-serif; }
+    .footer-container { display:flex; justify-content:space-between; flex-wrap:wrap; max-width:1200px; margin:auto; }
+    .footer-column { flex:1; min-width:200px; margin-bottom:20px; }
+    .footer-column h4 { margin-bottom:15px; font-size:16px; color:#00f2ff; }
+    .footer-column ul { list-style:none; padding:0; margin:0; }
+    .footer-column ul li { margin-bottom:8px; }
+    .footer-column ul li a { color:white; text-decoration:none; font-size:14px; transition: color 0.3s; }
+    .footer-column ul li a:hover { color:#00f2ff; }
+    .footer-bottom { text-align:center; border-top:1px solid #333; padding-top:15px; margin-top:30px; font-size:13px; color:#aaa; }
+    @media (max-width:768px){ .footer-container { flex-direction:column; text-align:center; } }
+  </style>
+</head>
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // Prevent the context menu
+});
+</script>
+<body>
+
+<section class="products-section">
+  <div class="container">
+    <h2>Go-QoT Products</h2>
+
+    <!-- Row 1 -->
+    <div class="product-row">
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='product2.png') }}" alt="65-qubit quantum">
+        <div class="product-desc">
+          <h3>65-qubit quantum</h3>
+          <p>Created a 65-qubit quantum computer called Quantum System One...</p>
+        </div>
+      </div>
+
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='product3.jpg') }}" alt="Smart Android 13 Board">
+        <div class="product-desc">
+          <h3>Smart Android 13 Board</h3>
+          <p>Unlock the power of Android 13 with 4G for just 180 USD!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="product-row">
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='product4.jpg.png') }}" alt="Micro Windows 11 Board">
+        <div class="product-desc">
+          <h3>Micro Windows 11 Board</h3>
+          <p>Unlock the power of Windows 11 with 4G for just 200 USD!</p>
+        </div>
+      </div>
+
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='product5.png') }}" alt="Industrial-Grade Mini PC">
+        <div class="product-desc">
+          <h3>Industrial-Grade Mini PC</h3>
+          <p>Reliable industrial PC with dual antennas, USB Type-C, dual LAN, HDMI & DisplayPort. Price: 600 USD</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="product-row">
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='powerfullPC.png') }}" alt="Powerful Mini PC">
+        <div class="product-desc">
+          <h3>Powerful Mini PC</h3>
+          <p>Mini PC 8Core RAM 32GB Wifi6 BT5.2 2HD ... Price: 400 USD</p>
+        </div>
+      </div>
+
+      <div class="product-card product-large">
+        <img src="{{ url_for('static', filename='linexpc.png') }}" alt="Quantum Tiny Linux DevKit">
+        <div class="product-desc">
+          <h3>Quantum Tiny Linux DevKit</h3>
+          <p>Compact Linux dev kit with quad-core ARM processor, 512 MB RAM, 16 GB storage... Price: 500 USD</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="return-home">
+      <!-- Fixed endpoint to 'home' -->
+      <a href="{{ url_for('home') }}">&#8592; 🔙 Return to Home 🏠</a>
+    </div>
+  </div>
+</section>
+
+<!-- Continuous Slider -->
+<section class="image-slider">
+  <div class="slider-track">
+    {% for img in ['back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png','back1.jpg','back8.png','logo.png','back4.jpg','back8.png','logo.png'] %}
+      <img src="{{ url_for('static', filename=img) }}" alt="">
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('products') }}">Products</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="#">Academy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Opportunities</h4>
+      <ul>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Market</a></li>
+        <li><a href="#">Directory</a></li>
+        <li><a href="#">Conferences</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <h2>Contact to Acquire</h2>
+    <p>Email: <a href="mailto:rwork0089@gmail.com">rwork0089@gmail.com</a></p>
+    <p>© 2026 GOQOT. All Rights Reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

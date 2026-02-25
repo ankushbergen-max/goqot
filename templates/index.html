@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOQOT — Quantum Domain</title>
+  <!-- Link to CSS in static folder -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<!-- ================= PROTECT HTML START ================= -->
+<style>
+  /* Disable text selection */
+  body, h1, h2, h3, h4, h5, h6, p, div, span {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+ */
+    user-select: none;         /* Standard */
+  }
+
+  /* Disable image dragging */
+  img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+</style>
+
+<script>
+  // Disable right-click
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert("Right-click is disabled on this website!");
+  });
+
+  // Disable Ctrl+U (view source) and Ctrl+Shift+I (dev tools)
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.shiftKey && e.key === 'I')) {
+      e.preventDefault();
+      alert("Viewing source is disabled!");
+    }
+  });
+
+  // Optional: show a console warning for curious people
+  console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", 
+    "color: white; background: red; font-size: 16px; padding: 5px;");
+</script>
+<!-- ================= PROTECT HTML END ================= -->
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="GOQOT Logo">
+    </div>
+
+    <nav class="site-nav">
+      <ul class="menu">
+        <li class="menu-item dropdown active">
+          <a href="#">Go-Quote</a>
+          <ul class="submenu">
+            <li><a href="{{ url_for('products') }}">Products</a></li>
+            <li><a href="#">Solution</a></li>
+            <li><a href="#">Gate Security</a></li>
+            <li><a href="#">Quantum Operating tool</a></li>
+            <li><a href="#">Quality Optimization tool</a></li>
+            <li><a href="{{ url_for('ecommerce') }}">E-Commerce Products</a></li>
+          </ul>
+        </li>
+        <li class="menu-item dropdown"><a href="#">Go-QC</a></li>
+        <li class="menu-item dropdown"><a href="#">Quantum-AI</a></li>
+        <li class="menu-item"><a href="{{ url_for('contact') }}">Go-Query</a></li>
+        <li class="menu-item"><a href="#">Go-Quorum</a></li>
+      </ul>
+    </nav>
+
+    <div class="search-container">
+      <input type="text" placeholder="Ask AI !">
+      <a href="{{ url_for('contact') }}" class="ask-btn">Contact 🔎</a>
+    </div>
+  </div>  
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="GoQot Logo" class="hero-logo">
+    <h1>Introducing GoQot</h1>
+    <p>Discover GoQot — Where Innovation Meets You!<br>
+       GoQoT brings the future to your <br>fingertips—leveraging the power of quantum<br> computing to 
+       solve complex problems, <br>delivering seamless SaaS solutions for <br>modern businesses, 
+       and offering an innovative <br>e-commerce platform for smart, industrial-grade products. 
+       <br>Our project merges cutting-edge technology <br>with practicality, 
+       creating a space where <br>efficiency, innovation, and commerce meet.<br>
+       Quantum, SaaS & E-commerce
+    </p>
+    <a href="{{ url_for('contact') }}" class="hero-btn">SaaS Domain</a>
+  </div>
+  <!-- Hero background slides -->
+  <div class="hero-slide s1"></div>
+  <div class="hero-slide s2"></div>
+  <div class="hero-slide s3"></div>
+  <div class="hero-slide s4"></div>
+  <div class="hero-slide s5"></div>
+  <div class="hero-slide s6"></div>
+</section>
+
+<!-- ================= CONTINUOUS IMAGE SLIDER ================= -->
+<section class="image-slider">
+  <div class="slider-track">
+    {% for img in [
+      'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png',
+      'product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png',
+      'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png',
+      'product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
+      <img src="{{ url_for('static', filename=img) }}" alt="Slider Image">
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('products') }}">Products</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="#">Academy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Opportunities</h4>
+      <ul>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Market</a></li>
+        <li><a href="#">Directory</a></li>
+        <li><a href="#">Conferences</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p>Email: <a href="mailto:rwork0089@gmail.com">rwork0089@gmail.com</a></p>
+      <p>Phone: +971-XXX-XXXX</p>
+      <p>Address: Dubai, UAE</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 GOQOT. All Rights Reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

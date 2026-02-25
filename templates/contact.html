@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url("{{ url_for('static', filename='back7.png') }}") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    /* Overlay for readability */
+    .overlay {
+      background: rgba(243, 214, 214, 0.7);
+      min-height: 100vh;
+    }
+
+    /* CONTACT FORM */
+    .contact-container {
+      width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(0,0,0,0.85);
+      border-radius: 10px;
+    }
+
+    .contact-container h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: orange;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: darkorange;
+    }
+
+    .home-btn {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: cyan;
+      text-decoration: none;
+    }
+
+    /* SLIDER */
+    .slider-container {
+      width: 90%;
+      margin: 30px auto;
+      overflow: hidden;
+      border: 2px solid white;
+      border-radius: 10px;
+      background: black;
+    }
+
+    .slider-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 25s linear infinite;
+    }
+
+    .slider-track img {
+      width: 200px;
+      height: 120px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // Prevent the context menu
+});
+</script>
+<body>
+<div class="overlay">
+
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+
+    <form action="/submit" method="POST">
+      <label>Name</label>
+      <input type="text" name="name" required>
+
+      <label>Company Name</label>
+      <input type="text" name="company" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Phone</label>
+      <input type="text" name="phone" required>
+
+      <label>Message</label>
+      <textarea name="message" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="{{ url_for('home') }}" class="home-btn">🏠 Return Home</a>
+  </div>
+
+  <!-- SLIDER -->
+  <div class="slider-container">
+    <div class="slider-track">
+      {% for img in [
+        'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png','background.png',
+        'powerfullPC.png','product1.png','product2.png','product3.jpg','product4.jpg.png','product5.png','back7.png'] %}
+        <img src="{{ url_for('static', filename=img) }}" alt="slider image">
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

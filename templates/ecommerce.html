@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOQOT E-commerce</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin:0; padding:0; }
+    .container { max-width:1200px; margin:auto; padding:20px; }
+    h2 { text-align:center; color:#0ac0ee; margin-bottom:20px; }
+    
+    .products-row { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+    .product-card { background:#fff; border-radius:8px; padding:15px; width:calc(33.33% - 20px); box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; }
+    .product-card img { width:100%; height:150px; object-fit:cover; margin-bottom:10px; }
+    .product-card h3 { font-size:18px; margin-bottom:5px; }
+    .product-card p { font-size:14px; margin-bottom:10px; color:#333; }
+    .product-card button { padding:8px 15px; background:#0ac0ee; color:white; border:none; border-radius:5px; cursor:pointer; transition:0.3s; }
+    .product-card button:hover { background:#007acc; }
+
+    /* Cart styles */
+    #cart { background:#fff; padding:15px; border-radius:8px; margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    #cart h3 { text-align:center; color:#0ac0ee; }
+    .cart-item { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #ddd; }
+    .cart-item button { padding:4px 10px; background:red; color:white; border:none; border-radius:4px; cursor:pointer; }
+    #total { font-weight:bold; text-align:right; display:block; margin-top:10px; }
+
+    .home-btn { display:block; text-align:center; margin-top:20px; color:#0ac0ee; text-decoration:none; font-weight:bold; }
+    .home-btn:hover { text-decoration:underline; }
+
+    /* Payment modal */
+    #paymentModal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6);
+      justify-content:center; align-items:center; z-index:1000;
+    }
+    #paymentContent {
+      background:#fff; padding:20px; border-radius:8px; width:300px; text-align:center;
+    }
+    #paymentContent input { width:100%; padding:8px; margin:10px 0; border-radius:5px; border:1px solid #ccc; }
+    #paymentContent button { padding:10px 20px; border:none; border-radius:5px; cursor:pointer; background:#0ac0ee; color:white; font-weight:bold; }
+    #paymentContent button:hover { background:#007acc; }
+
+    @media(max-width:900px){ .product-card { width:calc(50% - 20px); } }
+    @media(max-width:600px){ .product-card { width:100%; } }
+  </style>
+</head>
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // Prevent the context menu
+});
+</script>
+<body>
+  <div class="container">
+    <h2>GoQot 🛒 Shop </h2>
+
+    <!-- Products Row -->
+    <div class="products-row">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='product1.png') }}" alt="Product 1">
+        <h3>Quantum Board</h3>
+        <p>Smart quantum computing board</p>
+        <p>Price: $200</p>
+        <button onclick="addToCart('Quantum Board',200)">Add to Cart</button>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='product2.png') }}" alt="Product 2">
+        <h3>Mini PC</h3>
+        <p>Powerful mini PC 8GB RAM</p>
+        <p>Price: $400</p>
+        <button onclick="addToCart('Mini PC',400)">Add to Cart</button>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='product3.jpg') }}" alt="Product 3">
+        <h3>Linux DevKit</h3>
+        <p>Compact Linux developer kit</p>
+        <p>Price: $500</p>
+        <button onclick="addToCart('Linux DevKit',500)">Add to Cart</button>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='product4.jpg.png') }}" alt="Product 4">
+        <h3>Industrial PC</h3>
+        <p>Reliable industrial mini PC</p>
+        <p>Price: $600</p>
+        <button onclick="addToCart('Industrial PC',600)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Cart -->
+    <div id="cart">
+      <h3>Cart</h3>
+      <div id="cart-items"></div>
+      <p>Total: $<span id="total">0</span></p>
+      <button onclick="openPayment()">Place Order 💳</button>
+    </div>
+
+    <a href="{{ url_for('home') }}" class="home-btn">🏠 Return Home</a>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal">
+    <div id="paymentContent">
+      <h3>Payment 💳</h3>
+      <p>Total: $<span id="paymentTotal">0</span></p>
+       <!-- Payment Modal <input type="text" placeholder="Card Number" maxlength="0">
+      <input type="text" placeholder="MM/YY" maxlength="0">
+      <input type="text" placeholder="CVV" maxlength="0"-->
+      <button onclick="completePayment()">Pay Now</button>
+      <button onclick="closePayment()" style="background:red; margin-top:10px;">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    // Cart functions
+    function addToCart(name, price) {
+      const cartItems = document.getElementById("cart-items");
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("cart-item");
+      itemDiv.innerHTML = `
+        <span>${name} - $${price}</span>
+        <button onclick="removeItem(this)">Remove</button>
+      `;
+      cartItems.appendChild(itemDiv);
+      updateTotal();
+    }
+
+    function removeItem(button) {
+      button.parentElement.remove();
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const cartItems = document.querySelectorAll(".cart-item");
+      let total = 0;
+      cartItems.forEach(item => {
+        const text = item.querySelector("span").textContent;
+        const price = parseFloat(text.split("$")[1]);
+        total += price;
+      });
+      document.getElementById("total").textContent = total.toFixed(2);
+    }
+
+    // Payment functions
+    function openPayment() {
+      const cartItems = document.querySelectorAll(".cart-item");
+      if(cartItems.length === 0){
+        alert("Cart is empty!");
+        return;
+      }
+      const total = document.getElementById("total").textContent;
+      document.getElementById("paymentTotal").textContent = total;
+      document.getElementById("paymentModal").style.display = "flex";
+    }
+
+    function closePayment() {
+      document.getElementById("paymentModal").style.display = "none";
+    }
+
+    function completePayment() {
+      alert("Payment successful! ✅ Thank you for your order.");
+      document.getElementById("cart-items").innerHTML = "";
+      updateTotal();
+      closePayment();
+    }
+  </script>
+</body>
+</html>
