@@ -8,11 +8,25 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host=os.environ.get("MYSQL_HOST", "localhost"),
     user=os.environ.get("MYSQL_USER", "root"),
-    password=os.environ.get("MYSQL_PASSWORD", "ulanHawpqqntrrNjrCOFeHhGXmFHMbFB"),
-    database=os.environ.get("MYSQL_DATABASE", "railway"),  # ← change "test" to "railway"
+    password=os.environ.get("MYSQL_PASSWORD", ""),  # Don't hardcode password!
+    database=os.environ.get("MYSQL_DATABASE", "railway"),
     port=int(os.environ.get("MYSQL_PORT", 3306))
 )
 cursor = db.cursor()
+
+# Create table if it doesn't exist
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    company VARCHAR(255),
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255),
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+""")
+db.commit()
 
 @app.route('/')
 def home():
@@ -50,5 +64,4 @@ def submit():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-
     app.run(host="0.0.0.0", port=port)
