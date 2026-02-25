@@ -5,28 +5,24 @@ import time
 
 app = Flask(__name__)
 
-# Helper function to get MySQL variables (checks both with and without underscores)
-def get_mysql_var(name):
-    # Try with underscore first, then without
-    return os.environ.get(name, os.environ.get(name.replace('_', ''), None))
-
-# Print all MySQL environment variables for debugging
+# Print all possible MySQL variables for debugging
 print("===== DATABASE CONFIGURATION =====")
-print(f"MYSQL_HOST: {get_mysql_var('MYSQL_HOST')}")
-print(f"MYSQL_USER: {get_mysql_var('MYSQL_USER')}")
-print(f"MYSQL_PASSWORD: {'SET' if get_mysql_var('MYSQL_PASSWORD') else 'NOT SET'}")
-print(f"MYSQL_DATABASE: {get_mysql_var('MYSQL_DATABASE')}")
-print(f"MYSQL_PORT: {get_mysql_var('MYSQL_PORT')}")
+print(f"MYSQLHOST: {os.environ.get('MYSQLHOST', 'NOT SET')}")
+print(f"MYSQLUSER: {os.environ.get('MYSQLUSER', 'NOT SET')}")
+print(f"MYSQLPASSWORD: {'SET' if os.environ.get('MYSQLPASSWORD') else 'NOT SET'}")
+print(f"MYSQLDATABASE: {os.environ.get('MYSQLDATABASE', 'NOT SET')}")
+print(f"MYSQLPORT: {os.environ.get('MYSQLPORT', 'NOT SET')}")
 print("===================================")
 
-# MySQL connection with retry logic and error handling
+# MySQL connection with error handling
 def get_db_connection():
     try:
-        host = get_mysql_var('MYSQL_HOST')
-        user = get_mysql_var('MYSQL_USER')
-        password = get_mysql_var('MYSQL_PASSWORD')
-        database = get_mysql_var('MYSQL_DATABASE')
-        port = get_mysql_var('MYSQL_PORT')
+        # Use the EXACT variable names from Railway (no underscores)
+        host = os.environ.get('MYSQLHOST')
+        user = os.environ.get('MYSQLUSER')
+        password = os.environ.get('MYSQLPASSWORD')
+        database = os.environ.get('MYSQLDATABASE')
+        port = os.environ.get('MYSQLPORT')
         
         print(f"Attempting to connect to database at {host}:{port}...")
         
