@@ -8,8 +8,8 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host=os.environ.get("MYSQL_HOST", "localhost"),
     user=os.environ.get("MYSQL_USER", "root"),
-    password=os.environ.get("MYSQL_PASSWORD", "Ankush001!"),
-    database=os.environ.get("MYSQL_DATABASE", "contactdb"),
+    password=os.environ.get("MYSQL_PASSWORD", "ulanHawpqqntrrNjrCOFeHhGXmFHMbFB"),
+    database=os.environ.get("MYSQL_DATABASE", "railway"),  # ← change "test" to "railway"
     port=int(os.environ.get("MYSQL_PORT", 3306))
 )
 cursor = db.cursor()
@@ -50,4 +50,5 @@ def submit():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
+
     app.run(host="0.0.0.0", port=port)
