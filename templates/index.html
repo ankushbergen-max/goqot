@@ -81,7 +81,18 @@
 
 <!-- ================= HERO SECTION ================= -->
 <section class="hero">
+  <!-- Hero background slides (behind everything) -->
+  <div class="hero-slide s1"></div>
+  <div class="hero-slide s2"></div>
+  <div class="hero-slide s3"></div>
+  <div class="hero-slide s4"></div>
+  <div class="hero-slide s5"></div>
+  <div class="hero-slide s6"></div>
+
+  <!-- Dark overlay for readability -->
   <div class="hero-overlay"></div>
+
+  <!-- Hero content: logo, heading, paragraph, button -->
   <div class="hero-container">
     <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="GoQot Logo" class="hero-logo">
     <h1>Introducing GoQot</h1>
@@ -92,23 +103,15 @@
       Quantum, SaaS & E-commerce
     </p>
     <button class="hero-btn">SaaS Domain</button>
+  </div>
 
-    <!-- ================= Tiny Chat Widget ================= -->
-      <script
-      src="https://app.livechatai.com/embed.js"
-      data-id="cmm37z2qb0001l104bwuk1d9x"
-      async defer>
-      </script>
-
-  <!-- Hero background slides -->
-  <div class="hero-slide s1"></div>
-  <div class="hero-slide s2"></div>
-  <div class="hero-slide s3"></div>
-  <div class="hero-slide s4"></div>
-  <div class="hero-slide s5"></div>
-  <div class="hero-slide s6"></div>
+  <!-- Tiny Chat Widget -->
+  <script
+    src="https://app.livechatai.com/embed.js"
+    data-id="cmm37z2qb0001l104bwuk1d9x"
+    async defer>
+  </script>
 </section>
-
 <!-- ================= IMAGE SLIDER ================= -->
 <section class="image-slider">
   <div class="slider-track">
@@ -163,3 +166,4 @@
 
 </body>
 </html>
+
