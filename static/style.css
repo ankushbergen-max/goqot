@@ -160,11 +160,12 @@ body {
 .hero-container {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 5%;                 /* ← distance from left side */
+  transform: translateY(-50%);
   z-index: 2;
-  text-align: center;
+  text-align: left;         /* ← text aligns left */
   color: white;
+  max-width: 600px;        /* prevents too wide text */
 }
 
 .hero-logo {
@@ -355,3 +356,4 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
+
