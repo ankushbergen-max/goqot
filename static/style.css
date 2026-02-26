@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif; /* Change font-family here */
   color: #333;
   line-height: 1.6;
   background-color: #f5f5f5;
@@ -28,7 +28,7 @@ body {
   z-index: 1000;
 }
 
-/* Container */
+/* Header container */
 .header-container {
   max-width: 1200px;
   margin: auto;
@@ -45,7 +45,7 @@ body {
   display: block;
 }
 
-/* Menu */
+/* Main menu */
 .menu {
   list-style: none;
   display: flex;
@@ -53,34 +53,36 @@ body {
   align-items: center;
 }
 
-/* Menu item */
+/* Menu items */
 .menu-item {
   position: relative;
 }
 
 /* Main links */
 .menu-item > a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  padding: 8px 14px;
   display: block;
+  padding: 8px 14px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
   border-radius: 5px;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* Hover main item */
+/* Hover main link */
 .menu-item:hover > a {
   background: #007acc;
   color: white;
 }
 
 /* ================= DROPDOWN ================= */
+/* Base dropdown style */
 .submenu {
+  list-style: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   min-width: 180px;
@@ -91,10 +93,10 @@ body {
   visibility: hidden;
   pointer-events: none;
   transform: translateY(10px);
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
 }
 
-/* Show dropdown */
+/* Show dropdown on hover */
 .menu-item.dropdown:hover .submenu {
   opacity: 1;
   visibility: visible;
@@ -110,10 +112,17 @@ body {
   text-decoration: none;
   font-weight: normal;
   transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap; /* Prevents wrapping */
 }
 
 /* Dropdown hover */
 .submenu li a:hover {
+  background: #007acc;
+  color: white;
+}
+
+/* Stable dropdown: prevents flicker when moving mouse */
+.menu-item.dropdown:hover > a {
   background: #007acc;
   color: white;
 }
@@ -151,12 +160,25 @@ body {
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
   .menu {
+    flex-direction: column;
     gap: 10px;
-    font-size: 14px;
   }
 
   .submenu {
-    min-width: 150px;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    border: none;
+    background: transparent;
+    padding-left: 15px;
+  }
+
+  .submenu li a {
+    padding: 8px 0;
   }
 
   .header-container {
@@ -171,7 +193,7 @@ body {
   overflow: hidden;
 }
 
-/* Hero slides (background images) */
+/* Hero slides */
 .hero-slide {
   position: absolute;
   inset: 0;
@@ -195,7 +217,7 @@ body {
   100% { opacity: 0; }
 }
 
-/* Dark overlay for readability */
+/* Dark overlay */
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -203,16 +225,16 @@ body {
   z-index: 1;
 }
 
-/* Hero content fixed above slides */
+/* Hero content */
 .hero-container {
   position: absolute;
   top: 50%;
-  left: 5%;                 /* ← distance from left side */
+  left: 5%;                 /* Distance from left */
   transform: translateY(-50%);
   z-index: 2;
-  text-align: left;         /* ← text aligns left */
+  text-align: left;         /* Text aligns left */
   color: white;
-  max-width: 600px;        /* prevents too wide text */
+  max-width: 600px;         /* Prevents too wide text */
 }
 
 .hero-logo {
@@ -222,13 +244,13 @@ body {
 }
 
 .hero-container h1 {
-  font-size: 3rem;
+  font-size: 3rem; /* Change font size here */
   margin-bottom: 20px;
   color: rgb(104, 190, 243);
 }
 
 .hero-container p {
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Change font size here */
   line-height: 1.4;
   margin-bottom: 20px;
   color: whitesmoke;
@@ -388,6 +410,7 @@ body {
   height: 400px !important;
 }
 
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .tidio-chat-iframe,
   .tiny-talk-widget {
@@ -403,5 +426,3 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
-
-
