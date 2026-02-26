@@ -154,46 +154,78 @@ body {
 }
 
 /* ================= HERO SLIDESHOW ================= */
-/* Hero section */
 .hero {
   position: relative;
-  padding: 50px 20px;
-  background: #000; /* or your background image */
-  color: #fff;
   min-height: 400px;
-
+  overflow: hidden; /* ensure slides don't overflow */
 }
 
-/* Hero container */
+/* Hero slides (background images) */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  z-index: 0;
+  animation: fadeSlide 60s infinite linear;
+}
+
+/* Assign images */
+.hero-slide.s1 { background-image: url('back7.png'); animation-delay: 0s; }
+.hero-slide.s2 { background-image: url('product1.png'); animation-delay: 10s; }
+.hero-slide.s3 { background-image: url('back8.png'); animation-delay: 20s; }
+.hero-slide.s4 { background-image: url('product3.jpg'); animation-delay: 30s; }
+.hero-slide.s5 { background-image: url('back4.jpg'); animation-delay: 40s; }
+.hero-slide.s6 { background-image: url('back6.png'); animation-delay: 50s; }
+
+@keyframes fadeSlide {
+  0%, 24%   { opacity: 0; }
+  8%, 16%   { opacity: 1; }
+  100%      { opacity: 0; }
+}
+
+/* Dark overlay for readability */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+/* Hero text container stays fixed over slides */
 .hero-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  position: absolute; /* fix over slides */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center horizontally and vertically */
+  text-align: center;
+  z-index: 2; /* above slides and overlay */
+  color: white;
 }
 
-/* Logo on top */
+/* Logo */
 .hero-logo {
-  display: block;
-  width: 250px; 
+  width: 250px;
   height: auto;
-  margin: 150px auto 10px auto; /* top, right, bottom, left */
-  z-index: 10;                  /* ensures logo is above background */
-  position: relative;           /* stays in flow */
+  margin-bottom: 20px;
 }
 
 /* Heading */
 .hero-container h1 {
   font-size: 3rem;
-  margin: 0 0 20px 0;  /* gap below H1 */
+  margin-bottom: 20px;
   color: rgb(104, 190, 243);
 }
 
 /* Paragraph */
 .hero-container p {
-  font-size: 0.9rem !important;  /* smaller text */
-  line-height: 1.4 !important;   /* adjust spacing */
-  margin-bottom: 20px !important;
-  color: whitesmoke !important;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: whitesmoke;
 }
+
 /* Button */
 .hero-container .hero-btn {
   padding: 12px 25px;
@@ -203,7 +235,6 @@ body {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .hero-container .hero-btn:hover {
@@ -213,9 +244,6 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-logo {
-    width: 140px;
-  }
   .hero-container h1 {
     font-size: 2rem;
   }
@@ -225,6 +253,9 @@ body {
   .hero-container .hero-btn {
     font-size: 14px;
     padding: 10px 20px;
+  }
+  .hero-logo {
+    width: 140px;
   }
 }
 
@@ -494,3 +525,4 @@ body {
     right: 5% !important;
   }
 }
+
