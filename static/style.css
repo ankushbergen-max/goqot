@@ -324,6 +324,22 @@ body {
     padding: 10px 20px;
   }
 }
+
+/* Ensure hero section can be a reference for absolute positioning */
+.hero {
+  position: relative;
+}
+
+/* Move Tidio chat bubble in front of paragraph on right side */
+.tidio-chat-iframe {
+  position: absolute !important;
+  top: 50% !important;          /* vertically centered */
+  right: 20px !important;       /* distance from right edge */
+  transform: translateY(-50%) !important;
+  z-index: 9999 !important;     /* in front of hero content */
+  width: 300px !important;      /* optional: adjust width */
+  height: 400px !important;     /* optional: adjust height */
+}
 /* ================= ABOUT ================= */
 .about {
   background: url('back3.jpg') no-repeat center center;
@@ -456,5 +472,25 @@ body {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* Move TinyChat bubble in front of hero paragraph */
+.tiny-talk-widget {
+  position: absolute !important;
+  top: 50% !important;          /* vertically center */
+  right: 20px !important;       /* distance from right edge */
+  transform: translateY(-50%) !important;
+  z-index: 9999 !important;     /* in front of hero content */
+  width: 300px !important;      /* adjust width */
+  height: 400px !important;     /* adjust height */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .tiny-talk-widget {
+    width: 90% !important;
+    height: 350px !important;
+    right: 5% !important;
   }
 }
