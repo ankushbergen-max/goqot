@@ -22,99 +22,146 @@ body {
 .site-header {
   background: #e9f2f2;
   border-bottom: 1px solid #ddd;
-  padding: 10px 20px;
+  padding: 8px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
+/* Container */
 .header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  flex-wrap: nowrap;
-  padding: 5px 30px;
 }
 
-.site-header, .site-header * {
-  font-weight: bold !important;
-}
-
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  align-items: center;
-}
-
-.menu-item { position: relative; }
-
-.menu-item a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  padding: 8px 12px;
-  white-space: nowrap;
-}
-
-.menu-item:hover a { color: black; }
-
-.submenu {
-  display: none;
-  position: absolute;
-  top: 35px;
-  left: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  min-width: 150px;
-  z-index: 10;
-}
-
-.menu-item.dropdown .submenu {
-  display: block;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.menu-item.dropdown:hover .submenu,
-.menu-item.dropdown .submenu:hover {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.search-container {
-  display: flex;
-  gap: 5px;
-  flex-shrink: 0;
-}
-
-.search-container .ask-btn {
-  padding: 8px 20px;
-  background: #000;
-  color: white;
-  font-weight: bold;
-  border-radius: 25px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  text-align: center;
-  transition: background 0.3s, color 0.3s;
-}
-
-.search-container .ask-btn:hover {
-  background: #333;
-  color: #fff;
-}
-
+/* Logo */
 .logo img {
   height: 50px;
   width: auto;
   display: block;
+}
+
+/* Menu */
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Menu item */
+.menu-item {
+  position: relative;
+}
+
+/* Main links */
+.menu-item > a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 8px 14px;
+  display: block;
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover main item */
+.menu-item:hover > a {
+  background: #007acc;
+  color: white;
+}
+
+/* ================= DROPDOWN ================= */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 180px;
+  padding: 6px 0;
+  z-index: 999;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.25s ease;
+}
+
+/* Show dropdown */
+.menu-item.dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Dropdown links */
+.submenu li a {
+  display: block;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  font-weight: normal;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Dropdown hover */
+.submenu li a:hover {
+  background: #007acc;
+  color: white;
+}
+
+/* ================= RIGHT SIDE (Search & Button) ================= */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-container input {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* Button */
+.ask-btn {
+  padding: 7px 18px;
+  background: black;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.ask-btn:hover {
+  background: #333;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .menu {
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .submenu {
+    min-width: 150px;
+  }
+
+  .header-container {
+    padding: 0 15px;
+  }
 }
 
 /* ================= HERO SLIDESHOW ================= */
@@ -356,4 +403,5 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
+
 
