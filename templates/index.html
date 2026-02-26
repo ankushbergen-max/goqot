@@ -8,38 +8,22 @@
 
   <!-- ================= PROTECT HTML START ================= -->
   <style>
-    /* Disable text selection */
     body, h1, h2, h3, h4, h5, h6, p, div, span {
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
-
-    /* Disable image dragging */
-    img {
-      pointer-events: none;
-      -webkit-user-drag: none;
-    }
+    img { pointer-events: none; -webkit-user-drag: none; }
   </style>
-
   <script>
-    // Disable right-click
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      alert("Right-click is disabled on this website!");
-    });
-
-    // Disable Ctrl+U and Ctrl+Shift+I
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('contextmenu', e => { e.preventDefault(); alert("Right-click is disabled!"); });
+    document.addEventListener('keydown', e => {
       if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.shiftKey && e.key === 'I')) {
-        e.preventDefault();
-        alert("Viewing source is disabled!");
+        e.preventDefault(); alert("Viewing source is disabled!");
       }
     });
-
-    console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", 
-      "color: white; background: red; font-size: 16px; padding: 5px;");
+    console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", "color: white; background: red; font-size: 16px; padding: 5px;");
   </script>
   <!-- ================= PROTECT HTML END ================= -->
 </head>
@@ -65,34 +49,29 @@
             <li><a href="{{ url_for('ecommerce') }}">E-Commerce Products</a></li>
           </ul>
         </li>
-        <li class="menu-item dropdown"><a href="#">Go-QC</a></li>
-        <li class="menu-item dropdown"><a href="#">Quantum-AI</a></li>
+        <li class="menu-item"><a href="#">Go-QC</a></li>
+        <li class="menu-item"><a href="#">Quantum-AI</a></li>
         <li class="menu-item"><a href="{{ url_for('contact') }}">Go-Query</a></li>
         <li class="menu-item"><a href="#">Go-Quorum</a></li>
       </ul>
     </nav>
 
     <div class="search-container">
-      <!-- input type="text" placeholder="Ask AI !" -->
       <a href="{{ url_for('contact') }}" class="ask-btn">Contact 🔎</a>
     </div>
-  </div>  
+  </div>
 </header>
 
 <!-- ================= HERO SECTION ================= -->
 <section class="hero">
-  <!-- Hero background slides (behind everything) -->
   <div class="hero-slide s1"></div>
   <div class="hero-slide s2"></div>
   <div class="hero-slide s3"></div>
   <div class="hero-slide s4"></div>
   <div class="hero-slide s5"></div>
   <div class="hero-slide s6"></div>
-
-  <!-- Dark overlay for readability -->
   <div class="hero-overlay"></div>
 
-  <!-- Hero content: logo, heading, paragraph, button -->
   <div class="hero-container">
     <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="GoQot Logo" class="hero-logo">
     <h1>Introducing GoQot</h1>
@@ -106,18 +85,13 @@
   </div>
 
   <!-- Tiny Chat Widget -->
-  <script
-    src="https://app.livechatai.com/embed.js"
-    data-id="cmm37z2qb0001l104bwuk1d9x"
-    async defer>
-  </script>
+  <script src="https://app.livechatai.com/embed.js" data-id="cmm37z2qb0001l104bwuk1d9x" async defer></script>
 </section>
+
 <!-- ================= IMAGE SLIDER ================= -->
 <section class="image-slider">
   <div class="slider-track">
-    {% for img in [
-      'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png',
-      'product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
+    {% for img in ['back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png','product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
       <img src="{{ url_for('static', filename=img) }}" alt="Slider Image">
     {% endfor %}
   </div>
@@ -166,5 +140,3 @@
 
 </body>
 </html>
-
-
