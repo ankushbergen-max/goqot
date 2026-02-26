@@ -33,42 +33,13 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  flex-wrap: nowrap;
+  padding: 5px 30px;
 }
 
 .site-header,
 .site-header * {
   font-weight: bold !important;
-}
-
-.header-container {
-  flex-wrap: nowrap;
-  gap: 15px;
-  padding: 5px 30px;
-}
-
-.menu {
-  display: flex;
-  gap: 13px;
-  flex-wrap: nowrap;
-}
-
-.menu-item a {
-  white-space: nowrap;
-  font-weight: bold;
-  padding: 5px 10px;
-  font-size: 16px;
-}
-
-.search-container {
-  display: flex;
-  gap: 5px;
-  flex-shrink: 0;
-}
-
-.logo img {
-  height: 50px;
-  width: auto;
-  display: block;
 }
 
 .menu {
@@ -87,6 +58,7 @@ body {
   color: #333;
   font-weight: 500;
   padding: 8px 12px;
+  white-space: nowrap;
 }
 
 .menu-item:hover a {
@@ -105,27 +77,11 @@ body {
   z-index: 10;
 }
 
-.submenu li a {
-  display: block;
-  padding: 8px 12px;
-  color: #333;
-}
-
-/* ================= STABLE DROPDOWN WITH HOVER ================= */
-/* ================= ENHANCED STABLE DROPDOWN ================= */
 .menu-item.dropdown .submenu {
   display: block;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  position: absolute;
-  top: 35px;
-  left: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  min-width: 150px;
-  z-index: 10;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -135,6 +91,13 @@ body {
   visibility: visible;
   pointer-events: auto;
 }
+
+.search-container {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
 .search-container .ask-btn {
   padding: 8px 20px;
   background: #000;
@@ -153,11 +116,17 @@ body {
   color: #fff;
 }
 
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
 /* ================= HERO SLIDESHOW ================= */
 .hero {
   position: relative;
-  min-height: 400px;
-  overflow: hidden; /* ensure slides don't overflow */
+  min-height: 500px;
+  overflow: hidden;
 }
 
 /* Hero slides (background images) */
@@ -171,7 +140,6 @@ body {
   animation: fadeSlide 60s infinite linear;
 }
 
-/* Assign images */
 .hero-slide.s1 { background-image: url('back7.png'); animation-delay: 0s; }
 .hero-slide.s2 { background-image: url('product1.png'); animation-delay: 10s; }
 .hero-slide.s3 { background-image: url('back8.png'); animation-delay: 20s; }
@@ -180,9 +148,9 @@ body {
 .hero-slide.s6 { background-image: url('back6.png'); animation-delay: 50s; }
 
 @keyframes fadeSlide {
-  0%, 24%   { opacity: 0; }
-  8%, 16%   { opacity: 1; }
-  100%      { opacity: 0; }
+  0%, 24% { opacity: 0; }
+  8%, 16% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Dark overlay for readability */
@@ -193,32 +161,29 @@ body {
   z-index: 1;
 }
 
-/* Hero text container stays fixed over slides */
+/* Hero text container fixed above slides */
 .hero-container {
-  position: absolute; /* fix over slides */
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* center horizontally and vertically */
+  transform: translate(-50%, -50%);
+  z-index: 2;
   text-align: center;
-  z-index: 2; /* above slides and overlay */
   color: white;
 }
 
-/* Logo */
 .hero-logo {
   width: 250px;
   height: auto;
   margin-bottom: 20px;
 }
 
-/* Heading */
 .hero-container h1 {
   font-size: 3rem;
   margin-bottom: 20px;
   color: rgb(104, 190, 243);
 }
 
-/* Paragraph */
 .hero-container p {
   font-size: 1.5rem;
   line-height: 1.4;
@@ -226,7 +191,6 @@ body {
   color: whitesmoke;
 }
 
-/* Button */
 .hero-container .hero-btn {
   padding: 12px 25px;
   border: none;
@@ -242,7 +206,7 @@ body {
   color: white;
 }
 
-/* Responsive */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .hero-container h1 {
     font-size: 2rem;
@@ -257,120 +221,11 @@ body {
   .hero-logo {
     width: 140px;
   }
-}
-
-/* Each slide layer */
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: left;
-  opacity: 0;
-  z-index: 0;
-  animation: fadeSlide 50s infinite linear;
-}
-
-/* Assign images to each layer */
-.hero-slide.s1 { background-image: url('back7.png'); animation-delay: 0s; }
-.hero-slide.s2 { background-image: url('product1.png'); animation-delay: 10s; }
-.hero-slide.s3 { background-image: url('back8.png'); animation-delay: 20s; }
-.hero-slide.s4 { background-image: url('product3.jpg'); animation-delay: 30s; }
-.hero-slide.s5 { background-image: url('back4.jpg'); animation-delay: 40s; }
-.hero-slide.s6 { background-image: url('back6.png'); animation-delay: 50s; }
-
-/* Fade keyframes */
-@keyframes fadeSlide {
-  0%   { opacity: 0; }
-  8%   { opacity: 1; }
-  16%  { opacity: 1; }
-  24%  { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-/* Apply animation to all slides */
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  animation: fadeSlide 60s infinite linear;
-}
-/* Dark overlay for readability */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 5;
-}
-
-/* Hero text container */
-.hero-container {
-  position: relative;
-  z-index: 10;
-  color: white;
-  top: 40%;
-  transform: translateY(-40%);
-
-}
-
-
-.hero-container p {
-  font-size: 1.5rem;
-  color: whitesmoke;
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-
-.hero-container .hero-btn {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 6px;
-  background: #ffd966;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
- 
-}
-
-.hero-container .hero-btn:hover {
-  background: #007acc;
-  color: white;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
   .hero {
     height: 450px;
-    padding: 60px 15px;
-  }
-  .hero-container h1 {
-    font-size: 2.5rem;
-  }
-  .hero-container p {
-    font-size: 1rem;
-  }
-  .hero-container .hero-btn {
-    font-size: 14px;
-    padding: 10px 20px;
   }
 }
 
-/* Ensure hero section can be a reference for absolute positioning */
-.hero {
-  position: relative;
-}
-
-/* Move Tidio chat bubble in front of paragraph on right side */
-.tidio-chat-iframe {
-  position: absolute !important;
-  top: 50% !important;          /* vertically centered */
-  right: 20px !important;       /* distance from right edge */
-  transform: translateY(-50%) !important;
-  z-index: 9999 !important;     /* in front of hero content */
-  width: 300px !important;      /* optional: adjust width */
-  height: 400px !important;     /* optional: adjust height */
-}
 /* ================= ABOUT ================= */
 .about {
   background: url('back3.jpg') no-repeat center center;
@@ -406,6 +261,8 @@ body {
 .contact a:hover {
   text-decoration: underline;
 }
+
+/* ================= FOOTER ================= */
 .footer {
   background: #0a0a0a;
   color: #ffffff;
@@ -464,14 +321,14 @@ body {
   color: #aaa;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
     text-align: center;
   }
 }
-/* Continuous Horizontal Image Slider */
+
+/* ================= HORIZONTAL IMAGE SLIDER ================= */
 .image-slider {
   width: 100%;
   overflow: hidden;
@@ -487,42 +344,38 @@ body {
 }
 
 .slider-track img {
-  flex-shrink: 0;       /* prevents shrinking */
-  width: 250px;         /* set your desired width */
-  height: 120px;        /* set your desired height */
+  flex-shrink: 0;
+  width: 250px;
+  height: 120px;
   object-fit: cover;
-  margin: 0 30px;       /* horizontal gap between images */
+  margin: 0 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,255,255,0.3);
   background: #f05757;
 }
 
 @keyframes moveLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-/* Move TinyChat bubble in front of hero paragraph */
+/* ================= CHAT WIDGETS ================= */
+.tidio-chat-iframe,
 .tiny-talk-widget {
   position: absolute !important;
-  top: 50% !important;          /* vertically center */
-  right: 20px !important;       /* distance from right edge */
+  top: 50% !important;
+  right: 20px !important;
   transform: translateY(-50%) !important;
-  z-index: 9999 !important;     /* in front of hero content */
-  width: 300px !important;      /* adjust width */
-  height: 400px !important;     /* adjust height */
+  z-index: 9999 !important;
+  width: 300px !important;
+  height: 400px !important;
 }
 
-/* Responsive for mobile */
 @media (max-width: 768px) {
+  .tidio-chat-iframe,
   .tiny-talk-widget {
     width: 90% !important;
     height: 350px !important;
     right: 5% !important;
   }
 }
-
