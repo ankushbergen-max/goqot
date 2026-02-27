@@ -6,6 +6,11 @@ from urllib.parse import urlparse
 
 app = Flask(__name__)
 
+# === ONLY THESE 2 LINES ADDED FOR CSS FIX ===
+app.static_folder = 'static'
+app.static_url_path = '/static'
+# ============================================
+
 # Print all possible MySQL variables for debugging
 print("===== DATABASE CONFIGURATION =====")
 print(f"MYSQLHOST: {os.environ.get('MYSQLHOST', 'NOT SET')}")
@@ -218,6 +223,3 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     print(f"🚀 Starting app on port {port}...")
     app.run(host="0.0.0.0", port=port)
-
-
-
