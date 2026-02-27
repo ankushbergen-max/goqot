@@ -172,7 +172,11 @@ def contact():
 @app.route("/ecommerce")
 def ecommerce():
     return render_template("ecommerce.html")
-
+    
+@app.route("/goqc")
+def goqc():
+    return render_template("goqc.html")
+    
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
@@ -210,3 +214,4 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     print(f"🚀 Starting app on port {port}...")
     app.run(host="0.0.0.0", port=port)
+
