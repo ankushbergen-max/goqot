@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>Go-QC</title>
+
+<style>
+/* ================= BACKGROUND SETTINGS ================= */
+/* CHANGE BACKGROUND IMAGE HERE */
+body {
+  margin: 0;
+  background: url("{{ url_for('static', filename='quantum studies.png') }}") no-repeat center center fixed;
+  background-size: 100%;
+  font-family: Arial, sans-serif; /* ← CHANGE FONT FAMILY HERE */
+  color: #00f2ff;
+  overflow-x: hidden;
+}
+
+/* ================= HEADER ================= */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ← change to flex-start or flex-end */
+  padding: 20px;
+  border-bottom: 2px solid yellow;
+  background: rgba(0,0,0,0.6);
+}
+
+header img {
+  height: 60px; /* ← CHANGE LOGO SIZE HERE */
+  margin-right: 15px;
+}
+
+header h1 {
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px yellow;
+  font-size: 32px; /* ← CHANGE HEADER FONT SIZE HERE */
+}
+
+/* ================= ROTATING MENU ================= */
+.orbit-container {
+  position: relative;
+  width: 400px;   /* ← CHANGE CIRCLE SIZE HERE */
+  height: 400px;  /* ← CHANGE CIRCLE SIZE HERE */
+  margin: 60px auto; /* ← CHANGE VERTICAL POSITION HERE */
+}
+
+/* ROTATION SPEED */
+.orbit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed yellow;
+  border-radius: 50%;
+  animation: rotate 40s linear infinite; /* ← CHANGE ROTATION SPEED (40s) */
+}
+
+/* MENU OPTIONS STYLE */
+.option {
+  position: absolute;
+  width: 120px;  /* ← CHANGE BUTTON SIZE */
+  height: 120px; /* ← CHANGE BUTTON SIZE */
+  background: rgba(0,242,255,0.15);
+  border: 2px solid yellow;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 0 15px yellow;
+  transition: 0.3s;
+  font-size: 16px; /* ← CHANGE OPTION FONT SIZE */
+}
+
+.option:hover {
+  background: yellow;
+  color: black;
+  box-shadow: 0 0 25px yellow;
+}
+
+/* ================= OPTION POSITIONS ================= */
+/* MOVE OPTIONS AROUND THE CIRCLE HERE */
+.option1 { top: -10px; left: 140px; }   /* ← CHANGE POSITION */
+.option2 { top: 80px; right: -10px; }   /* ← CHANGE POSITION */
+.option3 { bottom: 80px; right: -10px; }/* ← CHANGE POSITION */
+.option4 { bottom: -10px; left: 140px; }/* ← CHANGE POSITION */
+.option5 { bottom: 80px; left: -10px; } /* ← CHANGE POSITION */
+.option6 { top: 80px; left: -10px; }    /* ← CHANGE POSITION */
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ================= CONTENT BOX ================= */
+.content-box {
+  max-width: 700px; /* ← CHANGE CONTENT WIDTH */
+  margin: auto;
+  padding: 30px;
+  border: 2px solid #00f2ff;
+  background: rgba(0,0,0,0.7);
+  box-shadow: 0 0 30px #00f2ff;
+  text-align: center;
+}
+
+.content-box h2 {
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00f2ff;
+  font-size: 26px; /* ← CHANGE CONTENT TITLE SIZE */
+}
+
+.content-box p {
+  font-size: 18px; /* ← CHANGE CONTENT TEXT SIZE */
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .orbit-container {
+    width: 300px; /* ← MOBILE SIZE */
+    height: 300px;
+  }
+
+  .option {
+    width: 90px;
+    height: 90px;
+    font-size: 13px;
+  }
+
+  header h1 {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <!-- CHANGE LOGO IMAGE HERE -->
+  <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="Logo">
+  <h1>GoQC SCI-FI HUB</h1>
+</header>
+
+<!-- ================= ROTATING MENU ================= -->
+<div class="orbit-container">
+  <div class="orbit">
+    <div class="option option1" onclick="showContent('products')">Products</div>
+    <div class="option option2" onclick="showContent('services')">Services</div>
+    <div class="option option3" onclick="showContent('news')">News</div>
+    <div class="option option4" onclick="showContent('sales')">Sales</div>
+    <div class="option option5" onclick="showContent('contact')">Contact</div>
+    <div class="option option6" onclick="showContent('updates')">Updates</div>
+  </div>
+</div>
+
+<!-- ================= CONTENT ================= -->
+<div class="content-box" id="content">
+  <h2>Welcome</h2>
+  <p>Select a rotating module to view details.</p>
+</div>
+
+<script>
+/* ================= CONTENT LOGIC ================= */
+function showContent(section) {
+  const content = document.getElementById("content");
+
+  if(section === "products") {
+    content.innerHTML = "<h2>Products</h2><p>Explore futuristic quantum devices and AI-powered machines.</p>";
+  }
+  if(section === "services") {
+    content.innerHTML = "<h2>Services</h2><p>We provide AI automation, robotics integration and cyber systems.</p>";
+  }
+  if(section === "news") {
+    content.innerHTML = "<h2>News</h2><p>Latest discoveries in quantum computing and neural networks.</p>";
+  }
+  if(section === "sales") {
+    content.innerHTML = "<h2>Sales</h2><p>Exclusive interstellar discounts and limited offers.</p>";
+  }
+  if(section === "contact") {
+    content.innerHTML = "<h2>Contact</h2><p>Email: rwork0089@gmail.com<br>Phone: +971-XXX-XXXX</p>";
+  }
+  if(section === "updates") {
+    content.innerHTML = "<h2>Updates</h2><p>System upgrades and AI model improvements in progress.</p>";
+  }
+}
+</script>
+
+</body>
+</html>
