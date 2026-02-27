@@ -193,15 +193,15 @@ body {
   background-position: center;
   opacity: 0;
   z-index: 0;
-  animation: fadeSlide 60s infinite linear;
+  animation: fadeSlide 30s infinite linear;
 }
 
-.hero-slide.s1 { background-image: url('back7.png'); animation-delay: 0s; }
-.hero-slide.s2 { background-image: url('product1.png'); animation-delay: 10s; }
-.hero-slide.s3 { background-image: url('back8.png'); animation-delay: 20s; }
-.hero-slide.s4 { background-image: url('product3.jpg'); animation-delay: 30s; }
-.hero-slide.s5 { background-image: url('back4.jpg'); animation-delay: 40s; }
-.hero-slide.s6 { background-image: url('back6.png'); animation-delay: 50s; }
+.hero-slide.s1 { background-image: url('product1.png'); animation-delay: 0s; }
+.hero-slide.s2 { background-image: url('back7.png'); animation-delay: 20s; }
+.hero-slide.s3 { background-image: url('back8.png'); animation-delay: 10s; }
+.hero-slide.s4 { background-image: url('product3.jpg'); animation-delay: 10s; }
+.hero-slide.s5 { background-image: url('back4.jpg'); animation-delay: 20s; }
+.hero-slide.s6 { background-image: url('back6.png'); animation-delay: 30s; }
 
 @keyframes fadeSlide {
   0%, 24% { opacity: 0; }
@@ -377,3 +377,4 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
+
