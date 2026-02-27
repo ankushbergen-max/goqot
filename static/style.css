@@ -15,7 +15,7 @@ body {
 
 /* ================= HEADER ================= */
 .site-header {
-  background: rgba(10, 10, 10, 0.95);
+  background: wheat;
   backdrop-filter: blur(10px);
   border-bottom: 4px solid #00f2ff;
   padding: 12px 0;
@@ -767,3 +767,4 @@ body {
     font-size: 2rem;
   }
 }
+
