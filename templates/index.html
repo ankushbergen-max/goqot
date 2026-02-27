@@ -6,7 +6,7 @@
   <title>GOQOT — Quantum Domain</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-  <!-- ================= PROTECT HTML START ================= -->
+  <!-- ================= PROTECT HTML ================= -->
   <style>
     body, h1, h2, h3, h4, h5, h6, p, div, span {
       -webkit-user-select: none;
@@ -16,16 +16,16 @@
     }
     img { pointer-events: none; -webkit-user-drag: none; }
   </style>
+
   <script>
     document.addEventListener('contextmenu', e => { e.preventDefault(); alert("Right-click is disabled!"); });
     document.addEventListener('keydown', e => {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.shiftKey && e.key === 'I')) {
+      if (e.ctrlKey && (e.key==='u'||e.key==='U'||(e.shiftKey && e.key==='I'))) {
         e.preventDefault(); alert("Viewing source is disabled!");
       }
     });
-    console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", "color: white; background: red; font-size: 16px; padding: 5px;");
+    console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", "color:white;background:red;font-size:16px;padding:5px;");
   </script>
-  <!-- ================= PROTECT HTML END ================= -->
 </head>
 <body>
 
@@ -49,8 +49,8 @@
             <li><a href="{{ url_for('ecommerce') }}">E-Commerce Products</a></li>
           </ul>
         </li>
-        <li class="menu-item"><a href="#">Go-QC</a></li>
-        <li class="menu-item"><a href="#">Quantum-AI</a></li>
+        <li class="menu-item dropdown"><a href="#">Go-QC</a></li>
+        <li class="menu-item dropdown"><a href="#">Quantum-AI</a></li>
         <li class="menu-item"><a href="{{ url_for('contact') }}">Go-Query</a></li>
         <li class="menu-item"><a href="#">Go-Quorum</a></li>
       </ul>
@@ -59,7 +59,7 @@
     <div class="search-container">
       <a href="{{ url_for('contact') }}" class="ask-btn">Contact 🔎</a>
     </div>
-  </div>
+  </div>  
 </header>
 
 <!-- ================= HERO SECTION ================= -->
@@ -70,6 +70,7 @@
   <div class="hero-slide s4"></div>
   <div class="hero-slide s5"></div>
   <div class="hero-slide s6"></div>
+
   <div class="hero-overlay"></div>
 
   <div class="hero-container">
@@ -91,7 +92,9 @@
 <!-- ================= IMAGE SLIDER ================= -->
 <section class="image-slider">
   <div class="slider-track">
-    {% for img in ['back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png','product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
+    {% for img in [
+      'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png',
+      'product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
       <img src="{{ url_for('static', filename=img) }}" alt="Slider Image">
     {% endfor %}
   </div>
@@ -137,6 +140,15 @@
     <p>© 2026 GOQOT. All Rights Reserved.</p>
   </div>
 </footer>
+
+<!-- ================= JS FOR STABLE DROPDOWN ================= -->
+<script>
+  document.querySelectorAll('.menu-item.dropdown').forEach(item => {
+    let timer;
+    item.addEventListener('mouseenter', () => { clearTimeout(timer); item.classList.add('show'); });
+    item.addEventListener('mouseleave', () => { timer = setTimeout(() => item.classList.remove('show'), 300); });
+  });
+</script>
 
 </body>
 </html>
