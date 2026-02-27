@@ -57,7 +57,7 @@ body {
 }
 
 .menu-item {
-  position: relative;   /* anchor for submenu */
+  position: relative;
 }
 
 .submenu {
@@ -111,15 +111,14 @@ body {
 .hero {
   position: relative;
   min-height: 100vh;
-  background: url("/static/back7.png") no-repeat left center; /* fixed for live */
+  background: url("/static/back7.png") no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* left-aligned content */
+  justify-content: flex-start;
   padding-left: 80px;
 }
 
-/* LIGHT overlay so image stays visible */
 .hero-overlay {
   position: absolute;
   inset: 0;
