@@ -35,7 +35,6 @@
     <div class="logo">
       <img src="{{ url_for('static', filename='logo.png') }}" alt="GOQOT Logo">
     </div>
-
     <nav class="site-nav">
       <ul class="menu">
         <li class="menu-item dropdown active">
@@ -44,18 +43,17 @@
             <li><a href="{{ url_for('products') }}">Products</a></li>
             <li><a href="#">Solution</a></li>
             <li><a href="#">Gate Security</a></li>
-            <li><a href="#">Quantum Operating tool</a></li>
-            <li><a href="#">Quality Optimization tool</a></li>
+            <li><a href="#">Quantum Operating Tool</a></li>
+            <li><a href="#">Quality Optimization Tool</a></li>
             <li><a href="{{ url_for('ecommerce') }}">E-Commerce Products</a></li>
           </ul>
         </li>
         <li class="menu-item"><a href="{{ url_for('goqc') }}">Go-QC</a></li>
-        <li class="menu-item "><a href="{{ url_for('qai') }}">Quantum-AI</a></li>
+        <li class="menu-item"><a href="{{ url_for('qai') }}">Quantum-AI</a></li>
         <li class="menu-item"><a href="{{ url_for('contact') }}">Go-Query</a></li>
         <li class="menu-item"><a href="{{ url_for('goqc') }}">Go-Quorum</a></li>
       </ul>
     </nav>
-
     <div class="search-container">
       <a href="{{ url_for('contact') }}" class="ask-btn">Contact 🔎</a>
     </div>
@@ -63,30 +61,67 @@
 </header>
 
 <!-- ================= HERO SECTION ================= -->
-<section class="hero">
-  <div class="hero-slide s1"></div>
-  <div class="hero-slide s2"></div>
-  <div class="hero-slide s3"></div>
-  <div class="hero-slide s4"></div>
-  <div class="hero-slide s5"></div>
-  <div class="hero-slide s6"></div>
-
+<section class="hero" style="background: url('{{ url_for('static', filename='back7.png') }}') no-repeat center center / cover;">
   <div class="hero-overlay"></div>
-
   <div class="hero-container">
     <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="GoQot Logo" class="hero-logo">
-    <h1>Introducing GoQot</h1>
+    <h1>Quantum-Powered Solutions for Smarter Businesses</h1>
     <p>
-      Quantum computing is transforming e-commerce with ultra-fast hardware and intelligent 
-      software solutions.<br>It enables real-time data analysis, smarter product recommendations, 
-      and highly secure transactions.<br>Quantum-powered systems also improve logistics, pricing, and 
-      fraud detection with extreme accuracy. 
+      Harness the power of quantum computing to optimize e-commerce, AI workflows, 
+      and secure business operations in real-time. Smarter recommendations, faster 
+      decisions, and unparalleled accuracy are just the start.
     </p>
-    <button class="hero-btn">SaaS Domain</button>
+    <div class="hero-buttons">
+      <button class="hero-btn" onclick="window.location.href='{{ url_for('products') }}'">Explore Solutions</button>
+      <button class="hero-btn secondary" onclick="window.location.href='{{ url_for('contact') }}'">Get Started</button>
+    </div>
   </div>
+</section>
 
-  <!-- Tiny Chat Widget -->
-  <script src="https://app.livechatai.com/embed.js" data-id="cmm37z2qb0001l104bwuk1d9x" async defer></script>
+<!-- ================= PROBLEMS / BENEFITS ================= -->
+<section class="benefits">
+  <div class="benefits-container">
+    <div class="benefit-card">
+      <img src="{{ url_for('static', filename='back1.jpg') }}" alt="Speed">
+      <h3>Fast Optimization</h3>
+      <p>Make critical business decisions instantly with quantum-enhanced algorithms.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="{{ url_for('static', filename='back3.jpg') }}" alt="Cost">
+      <h3>Reduced Costs</h3>
+      <p>Efficient quantum computing reduces operational costs and saves resources.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="{{ url_for('static', filename='back4.jpg') }}" alt="Accuracy">
+      <h3>High Accuracy</h3>
+      <p>Secure and precise computation ensures trustworthy analytics and insights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTIONS / PRODUCTS ================= -->
+<section class="solutions">
+  <h2>Our Quantum Solutions</h2>
+  <div class="solutions-container">
+    <div class="solution-card">
+      <img src="{{ url_for('static', filename='product1.png') }}" alt="GoQot Optimizer">
+      <h3>GoQot Optimizer</h3>
+      <p>Accelerate decision-making and optimize complex processes effortlessly.</p>
+      <button onclick="window.location.href='{{ url_for('products') }}'">Learn More</button>
+    </div>
+    <div class="solution-card">
+      <img src="{{ url_for('static', filename='product2.png') }}" alt="GoQot AI Integrator">
+      <h3>GoQot AI Integrator</h3>
+      <p>Seamlessly embed quantum algorithms into your AI workflows.</p>
+      <button onclick="window.location.href='{{ url_for('qai') }}'">Learn More</button>
+    </div>
+    <div class="solution-card">
+      <img src="{{ url_for('static', filename='product3.jpg') }}" alt="E-Commerce Quantum">
+      <h3>E-Commerce Quantum</h3>
+      <p>Boost revenue and reduce costs with smarter quantum-powered algorithms.</p>
+      <button onclick="window.location.href='{{ url_for('ecommerce') }}'">Learn More</button>
+    </div>
+  </div>
 </section>
 
 <!-- ================= IMAGE SLIDER ================= -->
@@ -98,6 +133,12 @@
       <img src="{{ url_for('static', filename=img) }}" alt="Slider Image">
     {% endfor %}
   </div>
+</section>
+
+<!-- ================= CTA BANNER ================= -->
+<section class="cta-banner">
+  <h2>Ready to Transform Your Business with Quantum Computing?</h2>
+  <button onclick="window.location.href='{{ url_for('contact') }}'">Talk to Our Experts</button>
 </section>
 
 <!-- ================= FOOTER ================= -->
@@ -150,45 +191,8 @@
   });
 </script>
 
-<script>
-  // Mobile dropdown toggle
-  document.addEventListener('DOMContentLoaded', function () {
-    const menuItems = document.querySelectorAll('.menu-item.dropdown > a');
+<!-- Tiny Chat Widget -->
+<script src="https://app.livechatai.com/embed.js" data-id="cmm37z2qb0001l104bwuk1d9x" async defer></script>
 
-    menuItems.forEach(item => {
-      item.addEventListener('click', function (e) {
-        e.preventDefault(); // prevent page jump
-        const parent = this.parentElement;
-
-        // Toggle .show class
-        parent.classList.toggle('show');
-
-        // Close other open dropdowns
-        menuItems.forEach(other => {
-          if (other !== this) {
-            other.parentElement.classList.remove('show');
-          }
-        });
-      });
-    });
-
-    // Click outside to close dropdown
-    document.addEventListener('click', function (e) {
-      menuItems.forEach(item => {
-        if (!item.parentElement.contains(e.target)) {
-          item.parentElement.classList.remove('show');
-        }
-      });
-    });
-  });
-</script>
-  
 </body>
 </html>
-
-
-
-
-
-
-
