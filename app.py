@@ -1,109 +1,96 @@
 from flask import Flask, render_template, request
 import mysql.connector
 import os
-import time
 from urllib.parse import urlparse
+from mysql.connector import Error
 
 app = Flask(__name__)
 
-# === ONLY THESE 2 LINES ADDED FOR CSS FIX ===
+# === CSS Fix ===
 app.static_folder = 'static'
 app.static_url_path = '/static'
-# ============================================
 
-# Print all possible MySQL variables for debugging
-print("===== DATABASE CONFIGURATION =====")
-print(f"MYSQLHOST: {os.environ.get('MYSQLHOST', 'NOT SET')}")
-print(f"MYSQLUSER: {os.environ.get('MYSQLUSER', 'NOT SET')}")
-print(f"MYSQLPASSWORD: {'SET' if os.environ.get('MYSQLPASSWORD') else 'NOT SET'}")
-print(f"MYSQLDATABASE: {os.environ.get('MYSQLDATABASE', 'NOT SET')}")
-print(f"MYSQLPORT: {os.environ.get('MYSQLPORT', 'NOT SET')}")
-print(f"MYSQL_URL: {'SET' if os.environ.get('MYSQL_URL') else 'NOT SET'}")
-print("===================================")
+# =================== DATABASE CONNECTION ===================
 
-# MySQL connection with error handling
 def get_db_connection():
-    connection = None
-    
-    # Method 1: Try using MYSQL_URL first (easiest)
-    mysql_url = os.environ.get('MYSQL_URL')
+    """
+    Connect to MySQL using Railway variables.
+    Priority: MYSQL_URL -> individual MYSQL_HOST vars.
+    Returns: connection object or None
+    """
+    mysql_url = os.environ.get("MYSQL_URL")
     if mysql_url:
         try:
-            print(f"Attempting to connect using MYSQL_URL...")
             parsed = urlparse(mysql_url)
-            
-            connection = mysql.connector.connect(
+            conn = mysql.connector.connect(
                 host=parsed.hostname,
                 user=parsed.username,
                 password=parsed.password,
-                database=parsed.path[1:],  # Remove leading '/'
+                database=parsed.path.lstrip("/"),
                 port=parsed.port or 3306,
-                connection_timeout=10
+                connection_timeout=10,
+                ssl_disabled=True
             )
-            print("✅ Database connected successfully using MYSQL_URL!")
-            return connection
-        except Exception as e:
-            print(f"❌ MYSQL_URL connection failed: {e}")
-    
-    # Method 2: Try individual variables (no underscores)
-    try:
-        host = os.environ.get('MYSQLHOST')
-        user = os.environ.get('MYSQLUSER')
-        password = os.environ.get('MYSQLPASSWORD')
-        database = os.environ.get('MYSQLDATABASE')
-        port = os.environ.get('MYSQLPORT')
-        
-        if host and user:
-            print(f"Attempting to connect to database at {host}:{port}...")
-            connection = mysql.connector.connect(
+            print("✅ Connected to DB using MYSQL_URL!")
+            return conn
+        except Error as e:
+            print(f"❌ Connection via MYSQL_URL failed: {e}")
+
+    # Fallback to individual variables
+    host = os.environ.get("MYSQL_HOST")
+    user = os.environ.get("MYSQL_USER")
+    password = os.environ.get("MYSQL_PASSWORD")
+    database = os.environ.get("MYSQL_DATABASE")
+    port = os.environ.get("MYSQL_PORT", 3306)
+
+    if host and user and database:
+        try:
+            conn = mysql.connector.connect(
                 host=host,
                 user=user,
-                password=password if password else "",
-                database=database if database else "railway",
-                port=int(port) if port else 3306,
-                connection_timeout=10
+                password=password,
+                database=database,
+                port=int(port),
+                connection_timeout=10,
+                ssl_disabled=True
             )
-            print("✅ Database connected successfully using individual variables!")
-            return connection
-    except Exception as e:
-        print(f"❌ Individual variables connection failed: {e}")
-    
-    # Method 3: Try variables with underscores
-    try:
-        host = os.environ.get('MYSQL_HOST')
-        user = os.environ.get('MYSQL_USER')
-        password = os.environ.get('MYSQL_PASSWORD')
-        database = os.environ.get('MYSQL_DATABASE')
-        port = os.environ.get('MYSQL_PORT')
-        
-        if host and user:
-            print(f"Attempting to connect to database at {host}:{port}...")
-            connection = mysql.connector.connect(
-                host=host,
-                user=user,
-                password=password if password else "",
-                database=database if database else "railway",
-                port=int(port) if port else 3306,
-                connection_timeout=10
-            )
-            print("✅ Database connected successfully using underscored variables!")
-            return connection
-    except Exception as e:
-        print(f"❌ Underscored variables connection failed: {e}")
-    
-    print("⚠️ All connection methods failed. App will continue without database.")
+            print("✅ Connected to DB using individual variables!")
+            return conn
+        except Error as e:
+            print(f"❌ Connection via individual variables failed: {e}")
+
+    print("⚠️ Database connection failed. App will continue without DB.")
     return None
 
-# Initialize database connection
+# Global DB connection and cursor
 db = get_db_connection()
-cursor = None
+cursor = db.cursor() if db else None
 
-# Create cursor and table if database connected
-if db:
+# =================== HELPER: AUTO-RECONNECT ===================
+
+def ensure_connection():
+    """
+    Checks if the connection is alive. Reconnects if necessary.
+    Returns a valid cursor or None
+    """
+    global db, cursor
     try:
-        cursor = db.cursor()
-        # Create table if it doesn't exist
-        cursor.execute("""
+        if db is None or not db.is_connected():
+            print("⚠️ Database disconnected. Reconnecting...")
+            db = get_db_connection()
+            cursor = db.cursor() if db else None
+        return cursor
+    except Exception as e:
+        print(f"❌ Error ensuring DB connection: {e}")
+        db = get_db_connection()
+        cursor = db.cursor() if db else None
+        return cursor
+
+# Create table if DB is available
+c = ensure_connection()
+if c:
+    try:
+        c.execute("""
         CREATE TABLE IF NOT EXISTS contacts (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
@@ -118,49 +105,8 @@ if db:
         print("✅ Table checked/created successfully!")
     except Exception as e:
         print(f"❌ Error creating table: {e}")
-        cursor = None
 
-# Debug route to see all environment variables
-@app.route('/debug-vars')
-def debug_vars():
-    import os
-    result = "<h1>Environment Variables</h1><table border='1' style='border-collapse: collapse;'>"
-    result += "<tr><th>Variable Name</th><th>Value</th></tr>"
-    
-    # Show all MySQL related variables
-    mysql_vars = {}
-    for key, value in os.environ.items():
-        if 'mysql' in key.lower() or 'MYSQL' in key:
-            if 'password' in key.lower() or 'PASSWORD' in key:
-                mysql_vars[key] = '********'  # Hide passwords
-            else:
-                mysql_vars[key] = value
-    
-    # Sort and display
-    for key in sorted(mysql_vars.keys()):
-        result += f"<tr><td>{key}</td><td>{mysql_vars[key]}</td></tr>"
-    
-    result += "</table>"
-    
-    # Add database status
-    if db and cursor:
-        result += "<p style='color: green;'>✅ Database is connected!</p>"
-    else:
-        result += "<p style='color: red;'>❌ Database is not connected</p>"
-    
-    return result
-
-# Test database connection
-@app.route('/test-db')
-def test_db():
-    if db and cursor:
-        try:
-            cursor.execute("SELECT 1")
-            return "✅ Database is connected and working!"
-        except Exception as e:
-            return f"❌ Database connection exists but query failed: {e}"
-    else:
-        return "❌ Database not connected"
+# =================== ROUTES ===================
 
 @app.route('/')
 def home():
@@ -185,26 +131,26 @@ def goqc():
 @app.route("/qai")
 def qai():
     return render_template("qai.html")    
-    
+
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
         name = request.form["name"]
-        company = request.form["company"]
+        company = request.form.get("company", "")
         email = request.form["email"]
-        phone = request.form["phone"]
-        message = request.form["message"]
-        
+        phone = request.form.get("phone", "")
+        message = request.form.get("message", "")
+
         print(f"Form submission received - Name: {name}, Email: {email}")
-        
-        if cursor is not None and db is not None:
+
+        c = ensure_connection()
+        if c and db:
             try:
                 sql = """
                 INSERT INTO contacts (name, company, email, phone, message)
                 VALUES (%s, %s, %s, %s, %s)
                 """
-                values = (name, company, email, phone, message)
-                cursor.execute(sql, values)
+                c.execute(sql, (name, company, email, phone, message))
                 db.commit()
                 print("✅ Form data saved to database successfully!")
                 return render_template("contact.html", success=True)
@@ -214,10 +160,40 @@ def submit():
         else:
             print("⚠️ Database not available - form data not saved")
             return render_template("contact.html", success=False, error="Database not connected")
-            
     except Exception as e:
         print(f"❌ Error in form submission: {e}")
         return render_template("contact.html", success=False, error="Form submission error")
+
+# =================== DEBUG / TEST ROUTES ===================
+
+@app.route('/debug-vars')
+def debug_vars():
+    result = "<h1>Environment Variables</h1><table border='1' style='border-collapse: collapse;'>"
+    result += "<tr><th>Variable Name</th><th>Value</th></tr>"
+
+    for key, value in os.environ.items():
+        if "mysql" in key.lower() or "MYSQL" in key:
+            if "password" in key.lower():
+                value = "********"
+            result += f"<tr><td>{key}</td><td>{value}</td></tr>"
+
+    result += "</table>"
+
+    result += "<p style='color: green;'>✅ Database is connected!</p>" if db and cursor else "<p style='color: red;'>❌ Database is not connected</p>"
+    return result
+
+@app.route('/test-db')
+def test_db():
+    c = ensure_connection()
+    if c and db:
+        try:
+            c.execute("SELECT 1")
+            return "✅ Database is connected and working!"
+        except Exception as e:
+            return f"❌ Database connection exists but query failed: {e}"
+    return "❌ Database not connected"
+
+# =================== RUN APP ===================
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
