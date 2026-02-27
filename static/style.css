@@ -162,6 +162,39 @@ body {
   z-index: 1;
 }
 
+/* Assign images to each layer */
+.hero-slide.s1 { background-image: url('back7.png'); animation-delay: 0s; }
+.hero-slide.s2 { background-image: url('product1.png'); animation-delay: 10s; }
+.hero-slide.s3 { background-image: url('back8.png'); animation-delay: 20s; }
+.hero-slide.s4 { background-image: url('product3.jpg'); animation-delay: 30s; }
+.hero-slide.s5 { background-image: url('back4.jpg'); animation-delay: 40s; }
+.hero-slide.s6 { background-image: url('back6.png'); animation-delay: 50s; }
+
+/* Fade keyframes */
+@keyframes fadeSlide {
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }
+  16%  { opacity: 1; }
+  24%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Apply animation to all slides */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fadeSlide 60s infinite linear;
+}
+/* Dark overlay for readability */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 5;
+}
 .hero-container {
   position: absolute;
   top: 50%;
@@ -371,3 +404,4 @@ body {
   .tidio-chat-iframe,
   .tiny-talk-widget { width: 90% !important; height: 350px !important; right: 5% !important; }
 }
+
