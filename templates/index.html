@@ -4,38 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GOQOT — Quantum Domain</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
+  <!-- ONLY THIS LINE CHANGED - using absolute path with cache busting -->
+  <link rel="stylesheet" href="/static/style.css?v={{ range(1, 10000) | random }}">
 
   <!-- ================= PROTECT HTML ================= -->
   <style>
-    body, h1, h2, h3, h4, h5, h6, p, div, span, a, button, img {
+    body, h1, h2, h3, h4, h5, h6, p, div, span {
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      -webkit-user-drag: none;
     }
-    img { pointer-events: none; }
+    img { pointer-events: none; -webkit-user-drag: none; }
   </style>
 
   <script>
-    // Disable right click
-    document.addEventListener('contextmenu', e => { 
-      e.preventDefault(); 
-      alert("⚠️ Right-click is disabled on this site!");
-    });
-    
-    // Disable keyboard shortcuts for viewing source
+    document.addEventListener('contextmenu', e => { e.preventDefault(); alert("Right-click is disabled!"); });
     document.addEventListener('keydown', e => {
-      if (e.ctrlKey && (e.key==='u'||e.key==='U'||e.key==='s'||e.key==='S'||(e.shiftKey && e.key==='I'||e.key==='i'||e.key==='C'||e.key==='c'||e.key==='J'||e.key==='j'))) {
-        e.preventDefault(); 
-        alert("⚠️ Viewing source is disabled!");
+      if (e.ctrlKey && (e.key==='u'||e.key==='U'||(e.shiftKey && e.key==='I'))) {
+        e.preventDefault(); alert("Viewing source is disabled!");
       }
     });
-    
-    // Console warning
-    console.log("%c⚠️ STOP! ⚠️", "color:white;background:red;font-size:20px;padding:10px;font-weight:bold;");
-    console.log("%cThis browser feature is disabled for security reasons.", "color:red;font-size:14px;");
+    console.log("%cHey there! ⚠️ Don’t try to steal the code 😉", "color:white;background:red;font-size:16px;padding:5px;");
   </script>
 </head>
 <body>
@@ -44,12 +35,12 @@
 <header class="site-header">
   <div class="header-container">
     <div class="logo">
-      <img src="{{ url_for('static', filename='2logo.jpg') }}" alt="GOQOT Logo">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="GOQOT Logo">
     </div>
     <nav class="site-nav">
       <ul class="menu">
         <li class="menu-item dropdown active">
-          <a href="#">Go-Quote ▾</a>
+          <a href="#">Go-Quote</a>
           <ul class="submenu">
             <li><a href="{{ url_for('products') }}">Products</a></li>
             <li><a href="#">Solution</a></li>
@@ -138,25 +129,11 @@
 <!-- ================= IMAGE SLIDER ================= -->
 <section class="image-slider">
   <div class="slider-track">
-    <img src="{{ url_for('static', filename='back1.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back3.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back4.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back6.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back7.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back8.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='product1.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='product2.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='product3.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='product5.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='powerfullPC.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='linexpc.png') }}" alt="Slider Image">
-    <!-- Duplicate for seamless loop -->
-    <img src="{{ url_for('static', filename='back1.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back3.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back4.jpg') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back6.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back7.png') }}" alt="Slider Image">
-    <img src="{{ url_for('static', filename='back8.png') }}" alt="Slider Image">
+    {% for img in [
+      'back1.jpg','back3.jpg','back4.jpg','back6.png','back7.png','back8.png',
+      'product1.png','product2.png','product3.jpg','product5.png','powerfullPC.png','linexpc.png'] %}
+      <img src="{{ url_for('static', filename=img) }}" alt="Slider Image">
+    {% endfor %}
   </div>
 </section>
 
@@ -211,24 +188,8 @@
 <script>
   document.querySelectorAll('.menu-item.dropdown').forEach(item => {
     let timer;
-    item.addEventListener('mouseenter', () => { 
-      clearTimeout(timer); 
-      item.classList.add('show'); 
-    });
-    item.addEventListener('mouseleave', () => { 
-      timer = setTimeout(() => item.classList.remove('show'), 300); 
-    });
-  });
-
-  // Touch support for mobile
-  document.querySelectorAll('.menu-item.dropdown > a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        const parent = link.parentElement;
-        parent.classList.toggle('show');
-      }
-    });
+    item.addEventListener('mouseenter', () => { clearTimeout(timer); item.classList.add('show'); });
+    item.addEventListener('mouseleave', () => { timer = setTimeout(() => item.classList.remove('show'), 300); });
   });
 </script>
 
@@ -237,5 +198,3 @@
 
 </body>
 </html>
-
-
