@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum AI Sci-Fi</title>
+  
+  <style>
+    /* ==================== GLOBAL STYLES ==================== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif; /* Futuristic font */
+      background-color: rgb(185, 148, 148); /* Default page background */
+      color: #00f2ff; /* Neon cyan text */
+      overflow-x: hidden;
+      background-size: cover;
+      background-position: center;
+      /* To add a background image, uncomment the line below and provide your image path */
+      /* background-image: url('your-background-image.jpg'); */
+    }
+
+    /* Disable text selection */
+    body, * {
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /* ==================== RIGHT CLICK BLOCK ==================== */
+    body {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* ==================== HEADER ==================== */
+    header {
+      text-align: center;
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-bottom: 2px solid #00f2ff;
+    }
+
+    header h1 {
+      font-size: 3em;
+      color: #ff00ff; /* Neon pink */
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #00f2ff;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #00f2ff;
+      text-shadow: 0 0 5px #00f2ff;
+    }
+
+    /* ==================== MAIN CONTENT ==================== */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin-bottom: 60px;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f2ff;
+      animation: glowPulse 3s infinite alternate;
+    }
+
+    .section h2 {
+      font-size: 2em;
+      color: #ffbf00; /* Neon yellow */
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px #ffbf00;
+    }
+
+    .section p {
+      font-size: 1.1em;
+      line-height: 1.6em;
+      color: #00f2ff;
+    }
+
+    /* ==================== BUTTONS / LINKS ==================== */
+    .btn {
+      padding: 15px 30px;
+      margin-top: 20px;
+      font-size: 1em;
+      color: black;
+      background: #00f2ff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #ff00ff;
+      color: white;
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #00f2ff;
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 10px #00f2ff; }
+      50% { box-shadow: 0 0 25px #ff00ff; }
+      100% { box-shadow: 0 0 10px #00f2ff; }
+    }
+
+    /* ==================== QUANTUM GRID EFFECT ==================== */
+    .quantum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-item {
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #00f2ff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff00ff;
+    }
+
+  </style>
+</head>
+<body oncontextmenu="return false;"> <!-- Right-click disabled -->
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <h1>Quantum AI: The Sci-Fi Frontier</h1>
+    <p>Exploring the infinite possibilities of quantum computing and artificial intelligence.</p>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main>
+    
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>Quantum Computing</h2>
+      <p>Quantum computing leverages the power of qubits, enabling superposition and entanglement. 
+         Imagine a computer exploring multiple realities simultaneously—solving problems in seconds 
+         that classical computers take millennia to compute.</p>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Artificial Intelligence</h2>
+      <p>Artificial intelligence evolves with quantum acceleration, analyzing data with unparalleled efficiency. 
+         From predictive algorithms to autonomous systems, AI in the quantum era surpasses imagination.</p>
+    </div>
+
+    <!-- Section 3: Quantum AI Features Grid -->
+    <div class="section">
+      <h2>Quantum AI Capabilities</h2>
+      <div class="quantum-grid">
+        <div class="grid-item">Superposition Computing</div>
+        <div class="grid-item">Entanglement Networks</div>
+        <div class="grid-item">Quantum Machine Learning</div>
+        <div class="grid-item">Neural Qubits Optimization</div>
+        <div class="grid-item">Predictive Multiverse Modeling</div>
+        <div class="grid-item">Adaptive Quantum Algorithms</div>
+      </div>
+    </div>
+
+    <!-- Call-to-Action -->
+    <div class="section" style="text-align:center;">
+      <h2>Join the Quantum Revolution</h2>
+      <a href="#" class="btn">Explore AI Simulations</a>
+    </div>
+
+  </main>
+
+  <!-- ==================== FUTURE NOTES ==================== -->
+  <!-- 
+       To add a futuristic background image, adjust in the body CSS:
+       body {
+           background-image: url('your-background.jpg');
+           background-size: cover; // or contain
+           background-position: center;
+       }
+
+       You can also animate background using CSS keyframes for moving stars, circuits, or particles.
+  -->
+
+</body>
+</html>
