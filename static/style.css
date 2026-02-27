@@ -150,55 +150,53 @@ body {
 }
 
 /* ================= MOBILE ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
-  /* Menu container */
-  .menu {
-    flex-direction: column; /* keep vertical for mobile, but can toggle */
-    gap: 5px;
-    background: #e9f2f2;
-    border-radius: 8px;
-    padding: 10px 0;
-  }
-
-  /* Menu items */
-  .menu-item {
-    width: 100%;
-  }
-
-  /* Main links */
-  .menu-item > a {
-    padding: 10px 15px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between; /* optional arrow for dropdown */
-    border-radius: 5px;
-  }
-
-  /* Dropdowns hidden by default */
-  .submenu {
-    display: none; /* hide dropdowns */
-    position: relative;
-    top: 0;
-    left: 0;
-    background: #f5f5f5;
-    border: none;
-    border-radius: 5px;
-    padding-left: 15px;
-  }
-
-  /* Dropdown links */
-  .submenu li a {
-    padding: 8px 0;
-    display: block;
-  }
-
-  /* Show dropdown on click (JS needed to toggle 'show' class) */
-  .menu-item.show .submenu {
-    display: block;
-  }
-
   .header-container {
-    padding: 0 15px;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;      /* allows items to move to next line if needed */
+    align-items: center;
+    justify-content: space-between; /* keeps logo left, menu right */
+    gap: 10px;
+  }
+
+  /* Keep menu horizontal */
+  .menu {
+    display: flex !important;  /* horizontal */
+    flex-direction: row !important;
+    flex-wrap: wrap;           /* wrap to next line if screen is too narrow */
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu-item > a {
+    padding: 6px 10px;        /* smaller padding for mobile */
+    font-size: 14px;
+  }
+
+  /* Dropdown menu */
+  .submenu {
+    position: absolute;       /* keeps dropdown over content */
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    min-width: 160px;
+    padding: 5px 0;
+    display: none;            /* hide by default */
+  }
+
+  .menu-item.show .submenu {
+    display: block;           /* toggle via JS click */
+  }
+
+  /* Adjust search/contact button */
+  .search-container {
+    margin-left: auto;
   }
 }
 /* ================= HERO SLIDESHOW ================= */
@@ -400,6 +398,7 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
+
 
 
 
