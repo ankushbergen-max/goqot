@@ -176,6 +176,10 @@ def ecommerce():
 @app.route("/goqc")
 def goqc():
     return render_template("goqc.html")
+
+@app.route("/qai")
+def goqc():
+    return render_template("qai.html")    
     
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -214,4 +218,5 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     print(f"🚀 Starting app on port {port}...")
     app.run(host="0.0.0.0", port=port)
+
 
