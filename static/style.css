@@ -151,33 +151,56 @@ body {
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
+  /* Menu container */
   .menu {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* keep vertical for mobile, but can toggle */
+    gap: 5px;
+    background: #e9f2f2;
+    border-radius: 8px;
+    padding: 10px 0;
   }
 
+  /* Menu items */
+  .menu-item {
+    width: 100%;
+  }
+
+  /* Main links */
+  .menu-item > a {
+    padding: 10px 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* optional arrow for dropdown */
+    border-radius: 5px;
+  }
+
+  /* Dropdowns hidden by default */
   .submenu {
+    display: none; /* hide dropdowns */
     position: relative;
     top: 0;
     left: 0;
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    background: #f5f5f5;
     border: none;
-    background: transparent;
+    border-radius: 5px;
     padding-left: 15px;
   }
 
+  /* Dropdown links */
   .submenu li a {
     padding: 8px 0;
+    display: block;
+  }
+
+  /* Show dropdown on click (JS needed to toggle 'show' class) */
+  .menu-item.show .submenu {
+    display: block;
   }
 
   .header-container {
     padding: 0 15px;
   }
 }
-
 /* ================= HERO SLIDESHOW ================= */
 .hero {
   position: relative;
@@ -377,5 +400,6 @@ body {
   .hero { height: 450px; }
   .footer-container { flex-direction: column; text-align: center; }
 }
+
 
 
